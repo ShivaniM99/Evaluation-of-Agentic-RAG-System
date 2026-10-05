@@ -54,7 +54,16 @@ out['cases']=cases
 
 
 import re as _re
+_docs = sorted({c["doc"] for case in cases for k in ("before", "after")
+                for c in ((case.get(k) or {}).get("trace") or {}).get("chunks", [])})
+_doc_alias = {d: f"doc-{i + 1:02d}" for i, d in enumerate(_docs)}
+
+
 def _anon(s):
+    # product-specific filenames (e.g. aiw00a12.pdf) would let a reader identify the source: relabel them
+    for d in sorted(_doc_alias, key=len, reverse=True):
+        stem = d[:-4] if d.endswith(".pdf") else d
+        s = s.replace(stem + ".pdf", _doc_alias[d] + ".pdf").replace(stem, _doc_alias[d])
     s = _re.sub(r"(?i)ricoh", "ABC Technology", s)
     s = _re.sub(r"ABC Technology ProcessDirector", "ABC Platform", s)
     s = _re.sub(r"ProcessDirector", "Platform", s)
