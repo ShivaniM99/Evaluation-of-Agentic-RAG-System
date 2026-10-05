@@ -254,7 +254,7 @@ The system is deployable as a Streamlit web application accessible from any brow
 
 ### 1. Clone the repository
 ```bash
-https://github.com/Olan-Pinto/ABC Technology-ATLAS---Agentic-Technical-Lookup-And-Support.git
+git clone https://github.com/ShivaniM99/Evaluation-of-Agentic-RAG-System.git
 ```
 
 ### 2. Install dependencies
